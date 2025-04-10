@@ -1,7 +1,7 @@
 {
   "name": "mmt-webfont",
   "type": "module",
-  "version": "1.0.0",
+  "version": "1.5.0",
   "packageManager": "pnpm@10.5.2",
   "description": "The webfont package for the MMT typeface.",
   "author": "Lruihao (https://github.com/Lruihao)",

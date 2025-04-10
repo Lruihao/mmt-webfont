@@ -8,6 +8,14 @@ async function split() {
   await fontSplit({
     input: inputBuffer,
     outDir: './dist',
+    css: {
+      fontFamily: 'MMT',
+      compress: true,
+      localFamily: [
+        'MMT',
+        '沐目体',
+      ],
+    },
   })
   console.log('Font split completed.')
 }
