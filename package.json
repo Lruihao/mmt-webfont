@@ -1,0 +1,41 @@
+{
+  "name": "mmt-webfont",
+  "type": "module",
+  "version": "1.0.0",
+  "packageManager": "pnpm@10.5.2",
+  "description": "The webfont package for the MMT typeface.",
+  "author": "Lruihao (https://github.com/Lruihao)",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Lruihao/mmt-webfont.git"
+  },
+  "keywords": [
+    "mmt",
+    "cjk",
+    "webfont"
+  ],
+  "scripts": {
+    "build": "tsx src/build.ts",
+    "lint": "eslint .",
+    "lint:fix": "eslint . --fix"
+  },
+  "dependencies": {
+    "cn-font-split": "^7.2.7"
+  },
+  "devDependencies": {
+    "@antfu/eslint-config": "^4.12.0",
+    "@types/node": "^22.14.0",
+    "eslint": "^9.24.0",
+    "tsx": "^4.19.3",
+    "typescript": "^5.8.3"
+  },
+  "pnpm": {
+    "onlyBuiltDependencies": [
+      "cn-font-split",
+      "esbuild",
+      "koffi",
+      "protobufjs"
+    ]
+  }
+}
