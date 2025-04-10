@@ -15,6 +15,11 @@
     "cjk",
     "webfont"
   ],
+  "files": [
+    "LICENSE",
+    "README.md",
+    "dist"
+  ],
   "scripts": {
     "build": "tsx src/build.ts",
     "lint": "eslint .",
