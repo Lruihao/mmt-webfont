@@ -3,7 +3,7 @@ import { fontSplit } from 'cn-font-split'
 
 async function split() {
   const inputBuffer = new Uint8Array(
-    fs.readFileSync('./src/MMT.ttf').buffer,
+    fs.readFileSync('./package/MMT.ttf').buffer,
   )
   await fontSplit({
     input: inputBuffer,
@@ -17,6 +17,7 @@ async function split() {
       ],
     },
   })
+  // eslint-disable-next-line no-console
   console.log('Font split completed.')
 }
 
