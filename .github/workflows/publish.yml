@@ -4,6 +4,9 @@ on:
   push:
     tags:
       - 'v*.*.*'
+    paths:
+      - 'package/**'
+      - '.github/workflows/publish.yml'
 
 jobs:
   publish-npm:
