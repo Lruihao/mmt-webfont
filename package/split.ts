@@ -10,9 +10,9 @@ async function split() {
     outDir: './dist',
     css: {
       fontFamily: 'MMT',
+      fontWeight: '400',
       compress: true,
       localFamily: [
-        'MMT',
         '沐目体',
       ],
     },

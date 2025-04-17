@@ -29,9 +29,6 @@ importers:
       eslint:
         specifier: ^9.24.0
         version: 9.24.0
-      mmt-webfont:
-        specifier: 'link:'
-        version: 'link:'
       npm-run-all2:
         specifier: ^7.0.2
         version: 7.0.2

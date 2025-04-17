@@ -1,35 +1,23 @@
 <script setup lang="ts">
-import 'mmt-webfont/dist/result.css'
+
 </script>
 
 <template>
   <header>
-    <div class="wrapper font-mmt">
-      To be, or not to be, that is the question.
-    </div>
+    To be, or not to be, that is the question.
+    <!-- TODO 打字预览 -->
   </header>
 
   <main>
-    TODO
+    <!-- TODO 音乐播放器 -->
   </main>
 </template>
 
 <style scoped>
 header {
-  line-height: 1.5;
-}
-
-@media (min-width: 1024px) {
-  header {
-    display: flex;
-    place-items: center;
-    padding-right: calc(var(--section-gap) / 2);
-  }
-
-  header .wrapper {
-    display: flex;
-    place-items: flex-start;
-    flex-wrap: wrap;
-  }
+  font-size: 3rem;
+  font-family: MMT;
+  font-style: italic;
+  font-weight: 600;
 }
 </style>
