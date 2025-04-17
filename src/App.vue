@@ -1,23 +1,20 @@
 <script setup lang="ts">
-
+import SectionCover from './components/SectionCover.vue'
+import SectionMusic from './components/SectionMusic.vue'
+import SectionPreview from './components/SectionPreview.vue'
 </script>
 
 <template>
-  <header>
-    To be, or not to be, that is the question.
-    <!-- TODO 打字预览 -->
-  </header>
-
-  <main>
-    <!-- TODO 音乐播放器 -->
-  </main>
+  <SectionCover />
+  <SectionPreview />
+  <SectionMusic />
 </template>
 
 <style scoped>
-header {
-  font-size: 3rem;
-  font-family: MMT;
-  font-style: italic;
-  font-weight: 600;
+section {
+  border: 2px solid var(--color-border);
+  &:not(:last-child) {
+    border-bottom: 0;
+  }
 }
 </style>
