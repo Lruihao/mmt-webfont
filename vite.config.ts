@@ -5,9 +5,10 @@ import { defineConfig } from 'vite'
 import vueDevTools from 'vite-plugin-vue-devtools'
 
 // https://vite.dev/config/
-export default defineConfig(() => {
+export default defineConfig(async ({ mode }) => {
   execSync('tsx package/split.ts')
   return {
+    base: mode === 'production' ? '/mmt-webfont/' : '/',
     plugins: [
       vue(),
       vueDevTools(),
