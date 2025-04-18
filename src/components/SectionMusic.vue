@@ -85,7 +85,6 @@ onMounted(() => {
     border-radius: 0.75rem;
     color: var(--color-comment);
     cursor: pointer;
-    margin-top: 1rem;
   }
   .pic-backdrop {
     position: absolute;
