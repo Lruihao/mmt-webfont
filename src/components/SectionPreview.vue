@@ -44,7 +44,7 @@ const style = computed(() => {
       <p class="live-content">
         {{ message || '「沐目之，湘也」\n 从下笔到停笔，从开始到结束，沐目体见证了我们稚嫩到成熟。\n故事的开头往往极具温柔，但结局常常不尽人意。\n那些忘不掉的人和事，岁月都已替我轻描淡写。' }}
       </p>
-      <textarea v-model="message" class="live-textarea" placeholder="请输入文字 ..." />
+      <textarea v-model="message" class="live-textarea" placeholder="中文测试器，你可以在这里写任何字来测试字体！" />
     </main>
   </section>
 </template>
@@ -95,7 +95,8 @@ const style = computed(() => {
       font-weight: var(--live-font-weight);
       line-height: 1.25;
       width: 50%;
-      max-height: 390px;
+      min-height: 120px;
+      max-height: 400px;
       overflow-y: auto;
       background-image:
         linear-gradient(90deg, var(--color-border) 3%, transparent 0),
