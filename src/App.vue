@@ -1,8 +1,8 @@
 <script setup lang="ts">
+import Footer from './components/Footer.vue'
 import SectionCover from './components/SectionCover.vue'
 import SectionMusic from './components/SectionMusic.vue'
 import SectionPreview from './components/SectionPreview.vue'
-import Footer from './components/Footer.vue'
 </script>
 
 <template>

@@ -1,6 +1,7 @@
 <script setup lang="ts">
 const currentYear = new Date().getFullYear()
 </script>
+
 <template>
   <footer>
     <p>仅用于个人非商用</P>
@@ -11,7 +12,6 @@ const currentYear = new Date().getFullYear()
     </p>
   </footer>
 </template>
-
 
 <style scoped>
 footer {

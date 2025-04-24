@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { ref, onMounted } from 'vue'
+import { onMounted, ref } from 'vue'
 
 interface Comment {
   name: string
@@ -35,7 +35,8 @@ function getRandomComment() {
         name: '未知用户',
         ...res.data,
       }
-    }).catch((err) => {
+    })
+    .catch((err) => {
       console.error(err)
       comment.value = {
         ...defaultComment,
@@ -52,17 +53,19 @@ onMounted(() => {
 <template>
   <section class="section-music">
     <div class="comment-163" title="随机下一条" @click="getRandomComment">
-      <span class="pic-backdrop" :style="comment.picurl ? `background-image: url(${comment.picurl});` : ''"></span>
+      <span class="pic-backdrop" :style="comment.picurl ? `background-image: url(${comment.picurl});` : ''" />
       <div class="commentator">
-        <img 
+        <img
           v-show="comment?.avatarurl"
           class="comment-avatar"
           :alt="`${comment.nickname}'s avatar`"
           :src="comment.avatarurl?.slice(5)"
-        />
+        >
         <span class="comment-nickname">{{ comment.nickname }}</span>
       </div>
-      <div class="comment-content">{{ comment.content }}</div>
+      <div class="comment-content">
+        {{ comment.content }}
+      </div>
       <div class="music-info">
         <span class="artists-name">{{ comment.artistsname }}</span>
         <span class="music-name">{{ comment.name }}</span>
