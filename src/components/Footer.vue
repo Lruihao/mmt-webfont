@@ -4,7 +4,7 @@ const currentYear = new Date().getFullYear()
 
 <template>
   <footer>
-    <p>仅用于个人非商用</P>
+    <p>仅限个人非商用</P>
     <p>
       © 2019 - {{ currentYear }}
       <a href="https://github.com/Lruihao/mmt-webfont/" target="_blank">沐目体</a>

@@ -17,6 +17,6 @@
   #app {
     display: grid;
     grid-template-rows: 1fr auto auto;
-    padding: 0 2rem;
+    max-width: 1000px;
   }
 }

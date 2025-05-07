@@ -12,6 +12,7 @@ interface Comment {
 }
 
 const mid = ref<string>('2280569152')
+const loading = ref<boolean>(false)
 const defaultComment: Comment = {
   musicName: '',
   musicUrl: '',
@@ -24,6 +25,7 @@ const defaultComment: Comment = {
 const comment = ref<Comment>(defaultComment)
 
 function getRandomComment() {
+  loading.value = true
   fetch(`https://api.lruihao.cn/netease/comment?mid=${mid.value}`)
     .then(response => response.json())
     .then((res) => {
@@ -43,6 +45,9 @@ function getRandomComment() {
         content: '获取评论失败，请稍后再试...',
       }
     })
+    .finally(() => {
+      loading.value = false
+    })
 }
 
 onMounted(() => {
@@ -52,7 +57,7 @@ onMounted(() => {
 
 <template>
   <section class="section-music">
-    <div class="comment-163" title="随机下一条" @click="getRandomComment">
+    <div v-if="!loading" class="comment-163" title="随机下一条" @click="getRandomComment">
       <span class="pic-backdrop" :style="comment.picUrl ? `background-image: url(${comment.picUrl});` : ''" />
       <div class="commentator">
         <img
@@ -63,19 +68,19 @@ onMounted(() => {
         >
         <span class="comment-nickname">{{ comment.nickname }}</span>
       </div>
-      <div v-if="comment.content" class="comment-content">
+      <div class="comment-content">
         {{ comment.content }}
       </div>
-      <div v-else class="loading-indicator-wrapper">
-        <div class="aether-spinner">
-          <div class="rect-one" />
-          <div class="rect-two" />
-          <div class="rect-three" />
-        </div>
-      </div>
       <div class="music-info">
-        <span class="artists-name">{{ comment.artist }}</span>
         <span class="music-name">{{ comment.musicName }}</span>
+        <span class="artists-name">{{ comment.artist }}</span>
+      </div>
+    </div>
+    <div v-else class="loading-indicator-wrapper">
+      <div class="aether-spinner">
+        <div class="rect-one" />
+        <div class="rect-two" />
+        <div class="rect-three" />
       </div>
     </div>
   </section>
@@ -83,10 +88,10 @@ onMounted(() => {
 
 <style scoped>
 .section-music {
+  position: relative;
   z-index: 1;
   padding: 1rem;
   min-height: 185px;
-  --color-comment: #272626;
 
   .comment-163 {
     font-family: MMT, '沐目体';
@@ -94,7 +99,7 @@ onMounted(() => {
     border: 1px solid #f5f5f5;
     padding: 0.75em;
     border-radius: 0.75rem;
-    color: var(--color-comment);
+    color: var(--color-comment, #272626);
     cursor: pointer;
     height: 100%;
   }
@@ -146,27 +151,36 @@ onMounted(() => {
   .music-info {
     display: flex;
     align-items: center;
-    flex-direction: row-reverse;
-    font-weight: 500;
+    justify-content: flex-end;
     font-size: 1.2rem;
     margin-top: 0.75em;
+    text-shadow: 0 0 4px var(--color-text-shadow, rgba(0, 0, 0, .4));
+  }
+  .music-name:not(:empty)::before {
+    content: '《';
+  }
+  .artists-name:not(:empty)::after {
+    content: '》';
   }
   .music-name:not(:empty)::after {
-    content: '-';
-    margin-left: 0.25rem;
-    margin-right: 0.25rem;
+    content: '·';
+    margin-inline: 0.25rem;
   }
   .mmt-netease-powered {
-    display: blcok;
+    display: block;
     text-align: right;
     font-size: 80%;
     color: #999;
     margin-block: 0.5rem;
   }
 }
+
 @media (prefers-color-scheme: dark) {
   .section-music {
     --color-comment: #f5f5f5;
+  }
+  .music-info {
+    --color-text-shadow: rgba(255, 255, 255, .8);
   }
 }
 

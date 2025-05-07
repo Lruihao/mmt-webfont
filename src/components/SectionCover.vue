@@ -4,13 +4,13 @@
     <a
       href="https://github.com/Lruihao/mmt-webfont"
       class="github-corner"
+      target="_blank"
       aria-label="View source on GitHub"
     >
       <svg
         width="80"
         height="80"
         viewBox="0 0 250 250"
-        style="fill:#151513; color:#fff; position: absolute; top: 0; border: 0; right: 0;"
         aria-hidden="true"
       >
         <path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z" />
@@ -34,6 +34,16 @@
   position: fixed;
   top: 0;
   right: 0;
+  z-index: 100;
+
+  svg {
+    fill: var(--github-corner-fill, #151513);
+    color: var(--github-corner-color, #fff);
+    position: absolute;
+    top: 0;
+    border: 0;
+    right: 0;
+  }
 }
 .github-corner:hover .octo-arm {
   animation: octocat-wave 560ms ease-in-out;
@@ -64,6 +74,13 @@
 
   .github-corner .octo-arm {
     animation: octocat-wave 560ms ease-in-out;
+  }
+}
+
+@media (prefers-color-scheme: dark) {
+  .github-corner {
+    --github-corner-fill: #fff;
+    --github-corner-color: #151513;
   }
 }
 </style>

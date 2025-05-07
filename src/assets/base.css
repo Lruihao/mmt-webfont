@@ -58,5 +58,7 @@ body {
     opacity: .1;
     pointer-events: none;
     touch-action: none;
+    top: 0;
+    left: 0;
   }
 }

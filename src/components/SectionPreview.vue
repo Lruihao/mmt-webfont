@@ -14,6 +14,10 @@ const style = computed(() => {
   }
 })
 
+if (window.innerWidth < 768) {
+  fontSize.value = 20
+}
+
 // ————“沐目之，湘也。”
 // 取字于大学时初恋的名字，这个字体也是为她而写。
 // 沐目体和红人馆的那首《最甜情歌》有着类似的遭遇。
