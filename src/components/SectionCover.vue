@@ -8,8 +8,8 @@
       aria-label="View source on GitHub"
     >
       <svg
-        width="80"
-        height="80"
+        width="50"
+        height="50"
         viewBox="0 0 250 250"
         aria-hidden="true"
       >
@@ -23,6 +23,7 @@
 
 <style scoped>
 .section-cover {
+  position: relative;
   .manuscript {
     width: 100%;
     height: auto;
@@ -74,6 +75,15 @@
 
   .github-corner .octo-arm {
     animation: octocat-wave 560ms ease-in-out;
+  }
+}
+
+@media (min-width: 1024px) {
+  .section-cover {
+    .manuscript {
+      border-top-left-radius: var(--border-radius);
+      border-top-right-radius: var(--border-radius);
+    }
   }
 }
 

@@ -38,6 +38,7 @@
     "@vitejs/plugin-vue": "^5.2.3",
     "@vue/tsconfig": "^0.7.0",
     "cn-font-split": "^7.2.9",
+    "colorthief": "^2.6.0",
     "eslint": "^9.26.0",
     "npm-run-all2": "^7.0.2",
     "tsx": "^4.19.4",

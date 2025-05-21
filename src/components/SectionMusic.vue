@@ -1,5 +1,6 @@
 <script setup lang="ts">
-import { onMounted, ref } from 'vue'
+import ColorThief from 'colorthief/dist/color-thief.mjs'
+import { computed, onMounted, ref } from 'vue'
 
 interface Comment {
   musicName: string
@@ -9,9 +10,13 @@ interface Comment {
   content: string
   nickname: string
   avatarUrl: string
+  timeStr: string
+  likedCount: number
 }
+type RGB = [number, number, number]
 
 const mid = ref<string>('2280569152')
+const imgRGB = ref<RGB>([0, 0, 0])
 const loading = ref<boolean>(false)
 const defaultComment: Comment = {
   musicName: '',
@@ -21,8 +26,40 @@ const defaultComment: Comment = {
   content: '',
   nickname: '',
   avatarUrl: '',
+  timeStr: '',
+  likedCount: 0,
 }
 const comment = ref<Comment>(defaultComment)
+const TIME_OUT = 60
+const timer = ref<ReturnType<typeof setInterval> | null>(null)
+const img = new Image()
+img.crossOrigin = 'Anonymous'
+
+function rgbToHex([r, g, b]: RGB): string {
+  return `#${[r, g, b].map((x) => {
+    const hex = x.toString(16)
+    return hex.length === 1 ? `0${hex}` : hex
+  }).join('')}`
+}
+
+function invertColor([r, g, b]: RGB): RGB {
+  return [255 - r, 255 - g, 255 - b]
+}
+
+function getImgColor() {
+  const colorThief = new ColorThief()
+  img.addEventListener('load', () => {
+    // const palette = colorThief.getPalette(img, 5)
+    imgRGB.value = colorThief.getColor(img)
+  })
+}
+
+// 图片的反色十六进制颜色
+const imgInvertColor = computed(() => {
+  if (!imgRGB.value)
+    return ''
+  return rgbToHex(invertColor(imgRGB.value))
+})
 
 function getRandomComment() {
   loading.value = true
@@ -37,6 +74,7 @@ function getRandomComment() {
         nickname: '未知用户',
         ...res.data,
       }
+      img.src = comment.value.picUrl
     })
     .catch((err) => {
       console.error(err)
@@ -50,14 +88,38 @@ function getRandomComment() {
     })
 }
 
-onMounted(() => {
+function refresh() {
   getRandomComment()
+  if (timer.value) {
+    clearInterval(timer.value)
+  }
+  timer.value = setInterval(() => {
+    getRandomComment()
+  }, TIME_OUT * 1000)
+}
+
+onMounted(() => {
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach((entry) => {
+      if (entry.isIntersecting) {
+        // 进入视口时开始获取评论
+        refresh()
+        // 取消观察
+        observer.disconnect()
+      }
+    })
+  }, { threshold: 0.1 })
+  const target = document.querySelector('.section-music')
+  if (target) {
+    observer.observe(target)
+  }
+  getImgColor()
 })
 </script>
 
 <template>
-  <section class="section-music">
-    <div v-if="!loading" class="comment-163" title="随机下一条" @click="getRandomComment">
+  <section class="section-music" :style="{ '--color-time': imgInvertColor }">
+    <div v-if="!loading" class="comment-163" title="随机下一条" @click="refresh">
       <span class="pic-backdrop" :style="comment.picUrl ? `background-image: url(${comment.picUrl});` : ''" />
       <div class="commentator">
         <img
@@ -66,7 +128,11 @@ onMounted(() => {
           :alt="`${comment.nickname}'s avatar`"
           :src="comment.avatarUrl?.slice(5)"
         >
-        <span class="comment-nickname">{{ comment.nickname }}</span>
+        <div class="comment-user">
+          <span class="comment-nickname">{{ comment.nickname }}</span>
+          <small class="comment-time">{{ comment.timeStr }}</small>
+        </div>
+        <span class="comment-liked">{{ comment.likedCount }}</span>
       </div>
       <div class="comment-content">
         {{ comment.content }}
@@ -91,14 +157,14 @@ onMounted(() => {
   position: relative;
   z-index: 1;
   padding: 1rem;
-  min-height: 185px;
+  min-height: 194px;
 
   .comment-163 {
     font-family: MMT, '沐目体';
     position: relative;
     border: 1px solid #f5f5f5;
     padding: 0.75em;
-    border-radius: 0.75rem;
+    border-radius: var(--border-radius);
     color: var(--color-comment, #272626);
     cursor: pointer;
     height: 100%;
@@ -113,32 +179,55 @@ onMounted(() => {
     filter: blur(10px);
     background-size: cover;
     background-position: center;
-    border-radius: 0.75rem;
+    border-radius: var(--border-radius);
     z-index: -1;
     opacity: 0.75;
   }
   .commentator {
     display: flex;
     align-items: center;
-  }
-  .comment-avatar {
-    width: 3.125em;
-    height: 3.125em;
-    border-radius: 50%;
-    margin-right: 0.75em;
-    border: 1px solid #f5f5f5;
-    padding: 0.125em;
-  }
-  .comment-nickname {
-    position: relative;
-    font-weight: 600;
-    font-size: 1.2rem;
-    text-decoration: none;
-    display: inline-block;
-  }
-  .comment-nickname:not(:empty)::after {
-    content: '：';
-    margin-right: 0.25em;
+    margin-bottom: 0.75em;
+    .comment-avatar {
+      width: 3.125em;
+      height: 3.125em;
+      border-radius: 50%;
+      margin-right: 0.75em;
+      border: 1px solid #f5f5f5;
+      padding: 0.125em;
+    }
+    .comment-user {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      line-height: 1.2;
+      .comment-nickname {
+        position: relative;
+        font-weight: 600;
+        font-size: 1.2rem;
+        text-decoration: none;
+        display: inline-block;
+      }
+      .comment-time {
+        font-size: 0.8rem;
+        color: var(--color-time);
+        /* 使用 CSS 也可达到同样的效果 */
+        /* mix-blend-mode: difference; */
+      }
+      .comment-nickname:not(:empty)::after {
+        content: '：';
+        margin-right: 0.25em;
+      }
+    }
+    .comment-liked {
+      font-weight: 600;
+      font-size: 0.8rem;
+      color: var(--color-time);
+      margin-left: auto;
+      &::after {
+        content: '👍';
+        margin-left: 0.25em;
+      }
+    }
   }
   .comment-content {
     word-wrap: break-word;
