@@ -15,8 +15,6 @@
   }
 
   #app {
-    display: grid;
-    grid-template-rows: 1fr auto auto;
     max-width: 1000px;
   }
 }

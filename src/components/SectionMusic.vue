@@ -23,6 +23,8 @@ const defaultComment: Comment = {
   avatarUrl: '',
 }
 const comment = ref<Comment>(defaultComment)
+const TIME_OUT = 30
+const timer = ref<ReturnType<typeof setInterval> | null>(null)
 
 function getRandomComment() {
   loading.value = true
@@ -50,14 +52,37 @@ function getRandomComment() {
     })
 }
 
-onMounted(() => {
+function refresh() {
   getRandomComment()
+  if (timer.value) {
+    clearInterval(timer.value)
+  }
+  timer.value = setInterval(() => {
+    getRandomComment()
+  }, TIME_OUT * 1000)
+}
+
+onMounted(() => {
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach((entry) => {
+      if (entry.isIntersecting) {
+        // 进入视口时开始获取评论
+        refresh()
+        // 取消观察
+        observer.disconnect()
+      }
+    })
+  }, { threshold: 0.1 })
+  const target = document.querySelector('.section-music')
+  if (target) {
+    observer.observe(target)
+  }
 })
 </script>
 
 <template>
   <section class="section-music">
-    <div v-if="!loading" class="comment-163" title="随机下一条" @click="getRandomComment">
+    <div v-if="!loading" class="comment-163" title="随机下一条" @click="refresh">
       <span class="pic-backdrop" :style="comment.picUrl ? `background-image: url(${comment.picUrl});` : ''" />
       <div class="commentator">
         <img
@@ -98,7 +123,7 @@ onMounted(() => {
     position: relative;
     border: 1px solid #f5f5f5;
     padding: 0.75em;
-    border-radius: 0.75rem;
+    border-radius: var(--border-radius);
     color: var(--color-comment, #272626);
     cursor: pointer;
     height: 100%;
@@ -113,7 +138,7 @@ onMounted(() => {
     filter: blur(10px);
     background-size: cover;
     background-position: center;
-    border-radius: 0.75rem;
+    border-radius: var(--border-radius);
     z-index: -1;
     opacity: 0.75;
   }

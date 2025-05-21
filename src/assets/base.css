@@ -3,6 +3,7 @@
   --color-text: #000;;
   --color-background: #ffffff;
   --color-border: rgba(60, 60, 60, 0.12);
+  --border-radius: 0.75rem;
 }
 
 @media (prefers-color-scheme: dark) {
