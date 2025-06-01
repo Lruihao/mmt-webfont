@@ -40,7 +40,7 @@
     "cn-font-split": "^7.2.9",
     "colorthief": "^2.6.0",
     "eslint": "^9.26.0",
-    "npm-run-all2": "^7.0.2",
+    "npm-run-all2": "^8.0.4",
     "tsx": "^4.19.4",
     "typescript": "~5.8.3",
     "vite": "^6.3.5",
