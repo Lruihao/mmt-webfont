@@ -32,20 +32,20 @@
     "lint:fix": "eslint src --fix"
   },
   "devDependencies": {
-    "@antfu/eslint-config": "^4.12.0",
-    "@tsconfig/node22": "^22.0.1",
-    "@types/node": "^22.15.11",
-    "@vitejs/plugin-vue": "^5.2.3",
+    "@antfu/eslint-config": "^4.13.2",
+    "@tsconfig/node22": "^22.0.2",
+    "@types/node": "^22.15.29",
+    "@vitejs/plugin-vue": "^5.2.4",
     "@vue/tsconfig": "^0.7.0",
     "cn-font-split": "^7.2.9",
     "colorthief": "^2.6.0",
-    "eslint": "^9.26.0",
+    "eslint": "^9.28.0",
     "npm-run-all2": "^7.0.2",
     "tsx": "^4.19.4",
     "typescript": "~5.8.3",
     "vite": "^6.3.5",
     "vite-plugin-vue-devtools": "^7.7.6",
-    "vue": "^3.5.13",
+    "vue": "^3.5.16",
     "vue-tsc": "^2.2.10"
   },
   "pnpm": {
