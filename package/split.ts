@@ -3,7 +3,7 @@ import { fontSplit } from 'cn-font-split'
 
 async function split() {
   const inputBuffer = new Uint8Array(
-    fs.readFileSync('./package/MMT.ttf').buffer,
+    fs.readFileSync('./package/ttf/MMT-Regular.ttf').buffer,
   )
   await fontSplit({
     input: inputBuffer,
@@ -13,6 +13,7 @@ async function split() {
       fontWeight: '400',
       compress: true,
       localFamily: [
+        'MMT',
         '沐目体',
       ],
     },

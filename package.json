@@ -18,8 +18,7 @@
   "files": [
     "LICENSE",
     "README.md",
-    "dist/*.css",
-    "dist/*.woff2"
+    "dist"
   ],
   "scripts": {
     "dev": "vite",
