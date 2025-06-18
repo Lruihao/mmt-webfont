@@ -11,7 +11,7 @@ interface Comment {
   nickname: string
   avatarUrl: string
   timeStr: string
-  likedCount: number
+  likedCount: number | null
 }
 type RGB = [number, number, number]
 
@@ -27,7 +27,7 @@ const defaultComment: Comment = {
   nickname: '',
   avatarUrl: '',
   timeStr: '',
-  likedCount: 0,
+  likedCount: null,
 }
 const comment = ref<Comment>(defaultComment)
 const TIME_OUT = 60
@@ -223,7 +223,7 @@ onMounted(() => {
       font-size: 0.8rem;
       color: var(--color-time);
       margin-left: auto;
-      &::after {
+      &:not(:empty)::after {
         content: '👍';
         margin-left: 0.25em;
       }
