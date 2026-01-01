@@ -32,7 +32,7 @@
     "lint:fix": "eslint src --fix"
   },
   "devDependencies": {
-    "@antfu/eslint-config": "^4.13.2",
+    "@antfu/eslint-config": "^6.7.3",
     "@tsconfig/node22": "^22.0.2",
     "@types/node": "^22.15.29",
     "@vitejs/plugin-vue": "^5.2.4",
